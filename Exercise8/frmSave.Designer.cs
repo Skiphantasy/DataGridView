@@ -51,6 +51,7 @@
             this.txtSaveName.Name = "txtSaveName";
             this.txtSaveName.Size = new System.Drawing.Size(120, 20);
             this.txtSaveName.TabIndex = 1;
+            this.txtSaveName.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtSaveName_KeyUp);
             // 
             // cmbxExtension
             // 
@@ -62,9 +63,11 @@
             this.cmbxExtension.Name = "cmbxExtension";
             this.cmbxExtension.Size = new System.Drawing.Size(63, 21);
             this.cmbxExtension.TabIndex = 2;
+            this.cmbxExtension.TextChanged += new System.EventHandler(this.cmbxExtension_TextChanged);
             // 
             // btnSave
             // 
+            this.btnSave.Enabled = false;
             this.btnSave.Location = new System.Drawing.Point(85, 96);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);

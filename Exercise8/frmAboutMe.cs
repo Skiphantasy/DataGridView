@@ -1,9 +1,9 @@
 ﻿/*
- * EXERCISE.............: Exercise 7.
+ * EXERCISE.............: Exercise 8.
  * NAME AND LASTNAME...: Tania López Martín 
  * CURSE AND GROUP.....: 2º Interface Development 
- * PROJECT.............: Forms
- * DATE................: 17 Dic 2018
+ * PROJECT.............: Forms II. Components
+ * DATE................: 21 Jan 2019
  */
 
 
@@ -17,7 +17,7 @@ namespace Exercise8
         #region constructor
         public frmAboutMe()
         {
-            RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\OurSettings");
+            RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\P8");
             InitializeComponent();
             this.CenterToParent();
 

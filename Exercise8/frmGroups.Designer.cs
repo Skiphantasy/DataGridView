@@ -36,7 +36,7 @@
             this.nuevoGrupoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openGroups = new System.Windows.Forms.ToolStripMenuItem();
             this.menuGroup = new System.Windows.Forms.ToolStripMenuItem();
-            this.guardarGrupoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiGuardarGrupo = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHelpItem = new System.Windows.Forms.ToolStripMenuItem();
             this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,7 +49,6 @@
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblGroup = new System.Windows.Forms.Label();
             this.lblGroupName = new System.Windows.Forms.Label();
-            this.saveGroup = new System.Windows.Forms.SaveFileDialog();
             this.mnuOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gviewStudents)).BeginInit();
             this.SuspendLayout();
@@ -61,7 +60,7 @@
             this.mnuOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.nuevoGrupoToolStripMenuItem,
             this.openGroups,
-            this.guardarGrupoToolStripMenuItem,
+            this.tsmiGuardarGrupo,
             this.salirToolStripMenuItem,
             this.mnuHelpItem});
             this.mnuOptions.Location = new System.Drawing.Point(10, 10);
@@ -93,12 +92,13 @@
             this.menuGroup.Text = "Lista de grupos";
             this.menuGroup.Click += new System.EventHandler(this.menuGroup_Click);
             // 
-            // guardarGrupoToolStripMenuItem
+            // tsmiGuardarGrupo
             // 
-            this.guardarGrupoToolStripMenuItem.Name = "guardarGrupoToolStripMenuItem";
-            this.guardarGrupoToolStripMenuItem.Size = new System.Drawing.Size(97, 20);
-            this.guardarGrupoToolStripMenuItem.Text = "Guardar Grupo";
-            this.guardarGrupoToolStripMenuItem.Click += new System.EventHandler(this.guardarGrupoToolStripMenuItem_Click);
+            this.tsmiGuardarGrupo.Enabled = false;
+            this.tsmiGuardarGrupo.Name = "tsmiGuardarGrupo";
+            this.tsmiGuardarGrupo.Size = new System.Drawing.Size(97, 20);
+            this.tsmiGuardarGrupo.Text = "Guardar Grupo";
+            this.tsmiGuardarGrupo.Click += new System.EventHandler(this.guardarGrupoToolStripMenuItem_Click);
             // 
             // salirToolStripMenuItem
             // 
@@ -197,10 +197,6 @@
             this.lblGroupName.Text = "-";
             this.lblGroupName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // saveGroup
-            // 
-            this.saveGroup.CheckFileExists = true;
-            // 
             // frmGroups
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -238,7 +234,7 @@
         private System.Windows.Forms.NotifyIcon nfyMessage;
         private System.Windows.Forms.ToolStripMenuItem nuevoGrupoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openGroups;
-        private System.Windows.Forms.ToolStripMenuItem guardarGrupoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmiGuardarGrupo;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
         private System.Windows.Forms.DataGridView gviewStudents;
         private System.Windows.Forms.Label lblGroup;
@@ -248,7 +244,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        public System.Windows.Forms.SaveFileDialog saveGroup;
         private System.Windows.Forms.ToolStripMenuItem menuGroup;
     }
 }

@@ -3,7 +3,7 @@
  * NAME AND LASTNAME...: Tania López Martín 
  * CURSE AND GROUP.....: 2º Interface Development 
  * PROJECT.............: Forms II. Components 
- * DATE................: 08 Jan 2018
+ * DATE................: 29 Jan 2018
  */
  
 

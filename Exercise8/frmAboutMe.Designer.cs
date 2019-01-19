@@ -73,7 +73,7 @@
             this.lblCreationDate.Name = "lblCreationDate";
             this.lblCreationDate.Size = new System.Drawing.Size(160, 13);
             this.lblCreationDate.TabIndex = 3;
-            this.lblCreationDate.Text = "Fecha de creación: 15/12/2018";
+            this.lblCreationDate.Text = "Fecha de creación: 19/01/2019";
             // 
             // lblUsedTimes
             // 

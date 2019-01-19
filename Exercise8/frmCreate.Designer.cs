@@ -77,7 +77,8 @@
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(148, 20);
             this.txtName.TabIndex = 1;
-            this.txtName.KeyPress +=  new System.Windows.Forms.KeyPressEventHandler(this.txtName_KeyPress);
+            this.txtName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtName_KeyPress);
+            this.txtName.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtName_KeyUp_1);
             // 
             // lblSubjects
             // 

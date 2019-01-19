@@ -1,17 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿/*
+ * EXERCISE.............: Exercise 8.
+ * NAME AND LASTNAME...: Tania López Martín 
+ * CURSE AND GROUP.....: 2º Interface Development 
+ * PROJECT.............: Forms II. Components
+ * DATE................: 21 Jan 2019
+ */
+
+using System;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Exercise8
 {
     public partial class frmCreate : Form
     {
+        bool enableName;
+        bool enableAccept;
         public frmCreate()
         {
             InitializeComponent();
@@ -56,14 +61,16 @@ namespace Exercise8
             }
 
             frmGroups.CurrentGroup = new Group(subjects, name);
+            frmGroups.DGridView.Enabled = true;
+            Form fc = Application.OpenForms[0];
             this.Close();
         }
 
         private void cmbxSubjects_SelectedIndexChanged(object sender, EventArgs e)
         {
             string info;
+            enableAccept = true;
             Label label;
-            int counter = 0;
             string[] subjects = new string[4];
 
             for (int i = 0; i < subjects.Length; i++)
@@ -71,14 +78,25 @@ namespace Exercise8
                 info = "lblSubject" + (i + 1);
                 label = this.Controls.Find(info, true).FirstOrDefault() as Label;
 
-                if (label.Text.Equals("") && counter == 0)
+                if (label.Text.Equals(""))
                 {
-                    counter++;
                     label.Text = cmbxSubjects.Text;
+                    cmbxSubjects.Items.Remove(cmbxSubjects.Text);
                 } 
             }
 
-            if(counter == 0)
+            for (int i = 0; i < subjects.Length; i++)
+            {
+                info = "lblSubject" + (i + 1);
+                label = this.Controls.Find(info, true).FirstOrDefault() as Label;
+
+                if (label.Text.Equals(""))
+                {
+                   enableAccept = false;
+                }
+            }
+
+            if (enableAccept && enableName)
             {
                 btnAccept.Enabled = true;
             }
@@ -102,7 +120,26 @@ namespace Exercise8
             e.Handled = e.KeyChar != Convert.ToChar(Keys.Tab) && e.KeyChar != Convert.ToChar(Keys.Enter) && !char.IsLetter(e.KeyChar)
                 && e.KeyChar != Convert.ToChar(Keys.Back) && e.KeyChar != Convert.ToChar(Keys.Space);
             TextBox textBox = (TextBox)sender;
+        }
 
+        private void txtName_KeyUp_1(object sender, KeyEventArgs e)
+        {
+            if (txtName.Text.Replace(" ", "").Equals(""))
+            {
+                enableName = false;
+            }
+            else
+            {
+                enableName = true;
+            }
+
+            if (enableAccept && enableName)
+            {
+                btnAccept.Enabled = true;
+            } else
+            {
+                btnAccept.Enabled = false;
+            }
         }
     }
 }

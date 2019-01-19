@@ -1,9 +1,9 @@
 ﻿/*
- * EXERCISE.............: Exercise 8.
+ * EXERCISE............: Exercise 8.
  * NAME AND LASTNAME...: Tania López Martín 
  * CURSE AND GROUP.....: 2º Interface Development 
- * PROJECT.............: Forms
- * DATE................: 17 Dic 2018
+ * PROJECT.............: Forms II. Components
+ * DATE................: 21 Jan 2019
  */
 
 
@@ -20,6 +20,7 @@ namespace Exercise8
     public partial class frmGroups : Form
     {
         #region attributes
+        static Label groupName;
         static Group group;
         static DataGridView dGridView;
         static string savingFile;
@@ -38,13 +39,15 @@ namespace Exercise8
             this.Size = new System.Drawing.Size(317, 320);
             InitializeComponent();
             ExistingGroups();
+            groupName = lblGroupName;
             dGridView = gviewStudents;
+            DGridView.Enabled = false;
 
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\OurSettings", RegistryKeyPermissionCheck.ReadWriteSubTree);
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\P8", RegistryKeyPermissionCheck.ReadWriteSubTree);
 
             if (key == null)
             {
-                key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\OurSettings", RegistryKeyPermissionCheck.ReadWriteSubTree);
+                key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\P8", RegistryKeyPermissionCheck.ReadWriteSubTree);
                 key.SetValue("Uses", 1);
                 key.Close();
             }
@@ -59,7 +62,9 @@ namespace Exercise8
 
         private void ExistingGroups()
         {
-            DirectoryInfo d = new DirectoryInfo(".");//Assuming Test is your Folder
+            menuGroup.DropDownItems.Clear();
+
+            DirectoryInfo d = new DirectoryInfo(".");
             FileInfo[] fs = d.GetFiles("*.gru"); 
             foreach (FileInfo f in fs)
             {
@@ -69,7 +74,7 @@ namespace Exercise8
             for (int i = 0; i < menuGroup.DropDownItems.Count; i++)
             {
                 menuGroup.DropDownItems[i].Click += new EventHandler(loadGroup_Click);
-            }
+            }            
         }
 
         private void ColumnDigit_KeyPress(object sender, KeyPressEventArgs e)
@@ -166,14 +171,16 @@ namespace Exercise8
         public static string SavingFile { get => savingFile; set => savingFile = value; }
         public static bool SaveOpen { get => saveOpen; set => saveOpen = value; }
         public static DataGridView DGridView { get => dGridView; set => dGridView = value; }
+        public static Label GroupName { get => groupName; set => groupName = value; }
         #endregion
 
         private void frmGroups_Click(object sender, EventArgs e)
         {
             if (creating)
             {
+                tsmiGuardarGrupo.Enabled = true;
                 int index = 0;
-                lblGroupName.Text = group.Name;
+                groupName.Text = group.Name;
                 gviewStudents.Enabled = true;
                 gviewStudents.ReadOnly = false;
 
@@ -225,7 +232,8 @@ namespace Exercise8
 
         private void guardarGrupoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form saveForm = new frmSave();
+            dGridView.EndEdit();
+            Form saveForm = new frmSave();            
             saveForm.Show();
             /*
             if(!saveOpen)
@@ -280,7 +288,6 @@ namespace Exercise8
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.InitialDirectory = @"C:\Users\Tania\source\repos\Exercise8";
             saveFileDialog1.Title = "Save Group Files";
-            //saveFileDialog1.CheckFileExists = true;
             saveFileDialog1.CheckPathExists = true;
             saveFileDialog1.Filter = "Group File|*.gru";
             saveFileDialog1.FilterIndex = 2;
@@ -300,15 +307,17 @@ namespace Exercise8
 
         private void openGroups_Click(object sender, EventArgs e)
         {
-
+            ExistingGroups();
         }
 
        
         private void loadGroup_Click(object sender, EventArgs e)
         {
             gviewStudents.Rows.Clear();
+            tsmiGuardarGrupo.Enabled = true;
             ToolStripDropDownItem combo = (ToolStripDropDownItem)sender;
             string file = combo.Text;
+            groupName.Text = combo.Text.Replace(".gru", "");
             using (BinaryReader bw = new BinaryReader(File.Open(file, FileMode.Open)))
             {
 
@@ -326,13 +335,21 @@ namespace Exercise8
 
                     for (int j = 0; j < n; ++j)
                     {
-                        if (bw.ReadBoolean())
-                        {     
-                            gviewStudents.Rows[i].Cells[j].Value = bw.ReadString();
+                        try
+                        {
+                            if (bw.ReadBoolean())
+                            {     
+                                gviewStudents.Rows[i].Cells[j].Value = bw.ReadString();
+                            }
+                            else bw.ReadBoolean();
                         }
-                        else bw.ReadBoolean();
+                        catch(EndOfStreamException)
+                        {
+                        }
                     }
                 }
+                dGridView.Enabled = true;
+                bw.Close();
             }
         }
 
