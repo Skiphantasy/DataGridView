@@ -6,6 +6,7 @@
  * DATE................: 21 Jan 2019
  */
 
+
 using System;
 using System.Drawing;
 using System.Linq;
@@ -15,12 +16,16 @@ namespace Exercise8
 {
     public partial class frmCreate : Form
     {
+        #region attributes
         bool enableName;
         bool enableAccept;
+        #endregion
+        #region constructor
         public frmCreate()
         {
             InitializeComponent();
         }
+        #endregion
         #region voids     
         public void EnableObjects(bool state)
         {
@@ -28,7 +33,7 @@ namespace Exercise8
             this.cmbxSubjects.Enabled = state;
         }
         #endregion
-
+        #region events
         private void txtName_KeyUp(object sender, KeyEventArgs e)
         {
             bool correctName;
@@ -62,7 +67,7 @@ namespace Exercise8
 
             frmGroups.CurrentGroup = new Group(subjects, name);
             frmGroups.DGridView.Enabled = true;
-            Form fc = Application.OpenForms[0];
+            frmGroups.UpdateMainForm();
             this.Close();
         }
 
@@ -102,14 +107,6 @@ namespace Exercise8
             }
         }
 
-        private void txtNameAndLastName_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = e.KeyChar != Convert.ToChar(Keys.Tab) && e.KeyChar != Convert.ToChar(Keys.Enter) && !char.IsLetter(e.KeyChar)
-                && e.KeyChar != Convert.ToChar(Keys.Back) && e.KeyChar != Convert.ToChar(Keys.Space);
-            TextBox textBox = (TextBox)sender;
-
-        }
-
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -141,5 +138,6 @@ namespace Exercise8
                 btnAccept.Enabled = false;
             }
         }
+        #endregion
     }
 }

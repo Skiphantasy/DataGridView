@@ -15,21 +15,25 @@ namespace Exercise8
 {
     public partial class frmSave : Form
     {
+        #region attributes
         bool enableName = true;
         bool enableExtension;
+        #endregion
+        #region constructor
         public frmSave()
         {
             InitializeComponent();
             txtSaveName.Text = frmGroups.GroupName.Text;
         }
-      
-
+        #endregion
+        #region events
         private void btnSave_Click(object sender, EventArgs e)
         {
             bool existFile = false;
             string savingFile;
             int emptyColumns;
             DirectoryInfo d;
+            float flt;
             FileInfo[] fs;
             savingFile = txtSaveName.Text + ".gru";
 
@@ -66,6 +70,7 @@ namespace Exercise8
                     foreach (DataGridViewRow dgvR in frmGroups.DGridView.Rows)
                     {
                         emptyColumns = 0;
+                        bool incorrect = false;
 
                         for (int j = 0; j < frmGroups.DGridView.Columns.Count; ++j)
                         {
@@ -75,9 +80,16 @@ namespace Exercise8
                             {
                                 emptyColumns++;
                             }
+                            else
+                            {
+                                if(j > 0 && !float.TryParse(val.Value.ToString().Replace(".", ","), out flt))
+                                {                              
+                                    incorrect = true;
+                                }
+                            }
                         }
 
-                        if (emptyColumns == 0)
+                        if (emptyColumns == 0 && incorrect == false)
                         {
                             for (int j = 0; j < frmGroups.DGridView.Columns.Count; ++j)
                             {
@@ -87,10 +99,17 @@ namespace Exercise8
                                 bw.Write(val.Value.ToString());
                             }
                         }
+                        else if (incorrect == true && emptyColumns == 0)
+                        {
+                            DialogResult result = MessageBox.Show("No se pudo guardar el alumno/a " + dgvR.Cells[0].Value.ToString()
+                                       + " porque una o más de sus notas no tenía(n) un formato válido.",
+                                   "Alerta", MessageBoxButtons.OK);
+                        }
                     }
                 }
             }
             frmGroups.DGridView.Enabled = true;
+            frmGroups.LoadData(savingFile);
             this.Close();
         }
 
@@ -135,5 +154,6 @@ namespace Exercise8
                 btnSave.Enabled = false;
             }
         }
+        #endregion
     }
 }

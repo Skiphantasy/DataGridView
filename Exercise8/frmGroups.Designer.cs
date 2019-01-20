@@ -1,9 +1,9 @@
 ﻿/*
- * EXERCISE.............: Exercise 8.
+ * EXERCISE............: Exercise 8.
  * NAME AND LASTNAME...: Tania López Martín 
  * CURSE AND GROUP.....: 2º Interface Development 
- * PROJECT.............: Forms
- * DATE................: 17 Dic 2018
+ * PROJECT.............: Forms II. Components
+ * DATE................: 21 Dic 2018
  */
  
  
@@ -49,6 +49,8 @@
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblGroup = new System.Windows.Forms.Label();
             this.lblGroupName = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.chckboxFilter = new System.Windows.Forms.CheckBox();
             this.mnuOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gviewStudents)).BeginInit();
             this.SuspendLayout();
@@ -90,7 +92,6 @@
             this.menuGroup.Name = "menuGroup";
             this.menuGroup.Size = new System.Drawing.Size(180, 22);
             this.menuGroup.Text = "Lista de grupos";
-            this.menuGroup.Click += new System.EventHandler(this.menuGroup_Click);
             // 
             // tsmiGuardarGrupo
             // 
@@ -145,7 +146,7 @@
             this.gviewStudents.Location = new System.Drawing.Point(28, 86);
             this.gviewStudents.Name = "gviewStudents";
             this.gviewStudents.Size = new System.Drawing.Size(393, 170);
-            this.gviewStudents.TabIndex = 2;
+            this.gviewStudents.TabIndex = 2;           
             this.gviewStudents.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.gviewStudents_EditingControlShowing);
             // 
             // Column5
@@ -192,10 +193,31 @@
             this.lblGroupName.BackColor = System.Drawing.Color.Transparent;
             this.lblGroupName.Location = new System.Drawing.Point(111, 52);
             this.lblGroupName.Name = "lblGroupName";
-            this.lblGroupName.Size = new System.Drawing.Size(204, 13);
+            this.lblGroupName.Size = new System.Drawing.Size(194, 13);
             this.lblGroupName.TabIndex = 4;
             this.lblGroupName.Text = "-";
             this.lblGroupName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Location = new System.Drawing.Point(311, 52);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(86, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Filtrar Aprobados";
+            // 
+            // chckboxFilter
+            // 
+            this.chckboxFilter.AutoSize = true;
+            this.chckboxFilter.Enabled = false;
+            this.chckboxFilter.Location = new System.Drawing.Point(403, 51);
+            this.chckboxFilter.Name = "chckboxFilter";
+            this.chckboxFilter.Size = new System.Drawing.Size(15, 14);
+            this.chckboxFilter.TabIndex = 7;
+            this.chckboxFilter.UseVisualStyleBackColor = true;
+            this.chckboxFilter.CheckedChanged += new System.EventHandler(this.chckboxFilter_CheckedChanged);
             // 
             // frmGroups
             // 
@@ -204,6 +226,8 @@
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(444, 281);
+            this.Controls.Add(this.chckboxFilter);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.lblGroupName);
             this.Controls.Add(this.lblGroup);
             this.Controls.Add(this.gviewStudents);
@@ -217,7 +241,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Gestión de Grupos";
             this.Shown += new System.EventHandler(this.frmSalary_Shown);
-            this.Click += new System.EventHandler(this.frmGroups_Click);
             this.mnuOptions.ResumeLayout(false);
             this.mnuOptions.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gviewStudents)).EndInit();
@@ -245,6 +268,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.ToolStripMenuItem menuGroup;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox chckboxFilter;
     }
 }
 
