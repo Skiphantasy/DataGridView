@@ -124,10 +124,12 @@ namespace Exercise8
             if (txtName.Text.Replace(" ", "").Equals(""))
             {
                 enableName = false;
+                txtName.BackColor = Color.Pink;
             }
             else
             {
                 enableName = true;
+                txtName.BackColor = Color.LightGreen;
             }
 
             if (enableAccept && enableName)

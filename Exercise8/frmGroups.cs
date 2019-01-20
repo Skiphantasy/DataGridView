@@ -225,8 +225,7 @@ namespace Exercise8
                 dGridView.Enabled = true;
                 checkBox.Enabled = true;
                 AddStudents();
-                bw.Close();
-                dGridView.CellValueChanged += new DataGridViewCellEventHandler(gviewStudents_CellValueChanged);
+                bw.Close();                
             }
         }
         #endregion
@@ -333,6 +332,7 @@ namespace Exercise8
 
         private void guardarGrupoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            dGridView.CellValueChanged -= new DataGridViewCellEventHandler(gviewStudents_CellValueChanged);
             dGridView.EndEdit();
             Form saveForm = new frmSave();            
             saveForm.Show();
@@ -352,6 +352,7 @@ namespace Exercise8
         {
             ToolStripDropDownItem combo = (ToolStripDropDownItem)sender;
             LoadData(combo.Text);
+            dGridView.CellValueChanged -= new DataGridViewCellEventHandler(gviewStudents_CellValueChanged);
         }
 
         private void chckboxFilter_CheckedChanged(object sender, EventArgs e)
@@ -414,38 +415,41 @@ namespace Exercise8
             }                 
         }
 
-        private static void gviewStudents_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        public static void gviewStudents_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             float number;
             DataGridView dtg = (DataGridView)sender;
             string value;
 
-            if (dtg[e.ColumnIndex, e.RowIndex].Value != null)
+            if(dtg.CurrentRow != null)
             {
-                value = dtg[e.ColumnIndex, e.RowIndex].Value.ToString();
-                if (float.TryParse(value, out number))
+                if (dtg[e.ColumnIndex, e.RowIndex].Value != null)
                 {
-                    if(value.Contains("."))
+                    value = dtg[e.ColumnIndex, e.RowIndex].Value.ToString();
+                    if (float.TryParse(value, out number))
                     {
-                        dtg[e.ColumnIndex, e.RowIndex].Value = value.Replace(".", ",");
-                        value = dtg[e.ColumnIndex, e.RowIndex].Value.ToString();
-                    }
-                    
-                    if (float.Parse(value) >= 10)
-                    {
-                        dtg[e.ColumnIndex, e.RowIndex].Value = string.Format("{0:0.00}", 10);
-                    }
-                    else if (float.Parse(value) < 0)
-                    {
-                        dtg[e.ColumnIndex, e.RowIndex].Value = string.Format("{0:0.00}", 0);
-                    }
-                    else
-                    {
-                        dtg[e.ColumnIndex, e.RowIndex].Value = string.Format("{0:0.00}", 
-                            float.Parse(dtg[e.ColumnIndex, e.RowIndex].Value.ToString()));           
+                        if (value.Contains("."))
+                        {
+                            dtg[e.ColumnIndex, e.RowIndex].Value = value.Replace(".", ",");
+                            value = dtg[e.ColumnIndex, e.RowIndex].Value.ToString();
+                        }
+
+                        if (float.Parse(value) >= 10)
+                        {
+                            dtg[e.ColumnIndex, e.RowIndex].Value = string.Format("{0:0.00}", 10);
+                        }
+                        else if (float.Parse(value) < 0)
+                        {
+                            dtg[e.ColumnIndex, e.RowIndex].Value = string.Format("{0:0.00}", 0);
+                        }
+                        else
+                        {
+                            dtg[e.ColumnIndex, e.RowIndex].Value = string.Format("{0:0.00}",
+                                float.Parse(dtg[e.ColumnIndex, e.RowIndex].Value.ToString()));
+                        }
                     }
                 }
-            }
+            }            
         }
         #endregion
         #region properties
@@ -455,6 +459,11 @@ namespace Exercise8
         public static bool SaveOpen { get => saveOpen; set => saveOpen = value; }
         public static DataGridView DGridView { get => dGridView; set => dGridView = value; }
         public static Label GroupName { get => groupName; set => groupName = value; }
-        #endregion   
+        #endregion
+
+        private void gviewStudents_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            dGridView.CellValueChanged += new DataGridViewCellEventHandler(gviewStudents_CellValueChanged);
+        }
     }
 }

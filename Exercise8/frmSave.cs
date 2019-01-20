@@ -8,6 +8,7 @@
 
 
 using System;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -24,11 +25,13 @@ namespace Exercise8
         {
             InitializeComponent();
             txtSaveName.Text = frmGroups.GroupName.Text;
+            txtSaveName.BackColor = Color.LightGreen;
         }
         #endregion
         #region events
         private void btnSave_Click(object sender, EventArgs e)
         {
+            frmGroups.DGridView.CellValueChanged -= new DataGridViewCellEventHandler(frmGroups.gviewStudents_CellValueChanged);
             bool existFile = false;
             string savingFile;
             int emptyColumns;
@@ -53,7 +56,7 @@ namespace Exercise8
             }
 
             if (existFile == false)
-            { 
+            {
                 frmGroups.SaveOpen = true;
 
                 using (BinaryWriter bw = new BinaryWriter(File.Open(savingFile, FileMode.Create)))
@@ -118,9 +121,11 @@ namespace Exercise8
             if (txtSaveName.Text.Replace(" ", "").Equals(""))
             {
                 enableName = false;
+                txtSaveName.BackColor = Color.Pink;
             }
             else
             {
+                txtSaveName.BackColor = Color.LightGreen;
                 enableName = true;
             }
 

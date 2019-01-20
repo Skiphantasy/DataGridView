@@ -90,7 +90,7 @@
             // menuGroup
             // 
             this.menuGroup.Name = "menuGroup";
-            this.menuGroup.Size = new System.Drawing.Size(180, 22);
+            this.menuGroup.Size = new System.Drawing.Size(154, 22);
             this.menuGroup.Text = "Lista de grupos";
             // 
             // tsmiGuardarGrupo
@@ -146,7 +146,8 @@
             this.gviewStudents.Location = new System.Drawing.Point(28, 86);
             this.gviewStudents.Name = "gviewStudents";
             this.gviewStudents.Size = new System.Drawing.Size(393, 170);
-            this.gviewStudents.TabIndex = 2;           
+            this.gviewStudents.TabIndex = 2;
+            this.gviewStudents.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.gviewStudents_CellEnter);
             this.gviewStudents.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.gviewStudents_EditingControlShowing);
             // 
             // Column5
